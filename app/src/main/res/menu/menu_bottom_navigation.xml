@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_taken"
+        android:title="Taken" />
+    <item
+        android:id="@+id/action_sales"
+        android:title="Sales" />
+    <item
+        android:id="@+id/action_price_setup"
+        android:title="Price Setup" />
+    <item
+        android:id="@+id/action_return"
+        android:title="Return"
+        app:showAsAction="ifRoom" />
+</menu>

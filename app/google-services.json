@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "653351287706",
+    "firebase_url": "https://handprintz-4fcf4.firebaseio.com",
+    "project_id": "handprintz-4fcf4",
+    "storage_bucket": "handprintz-4fcf4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653351287706:android:81af48abf9f0ec58",
+        "android_client_info": {
+          "package_name": "com.marmu.handprint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653351287706-h8gb7benl45fr8s76hd51mne6isn7v90.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.marmu.handprint",
+            "certificate_hash": "dc737a85bc3a15b554f8f9ea989957e30086d0d7"
+          }
+        },
+        {
+          "client_id": "653351287706-r05u0ata2l6j0db4m9m3j8ng5f3kk2hc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYGZHOvu2Lgwd-pyoHlmLPt5-csqKoFDg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653351287706-r05u0ata2l6j0db4m9m3j8ng5f3kk2hc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

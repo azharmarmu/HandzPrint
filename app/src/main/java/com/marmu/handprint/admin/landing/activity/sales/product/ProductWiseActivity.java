@@ -52,9 +52,12 @@ public class ProductWiseActivity extends AppCompatActivity {
     }
 
     public void generateSalesReport(View view) {
-        Intent productReport = new Intent(ProductWiseActivity.this, ProductReportActivity.class);
-        productReport.putExtra("date", date.getText().toString());
-        startActivity(productReport);
+        String dte = date.getText().toString();
+        if (!dte.isEmpty()) {
+            Intent productReport = new Intent(ProductWiseActivity.this, ProductReportActivity.class);
+            productReport.putExtra("date", date.getText().toString());
+            startActivity(productReport);
+        }
     }
 
     public void backPress(View view) {

@@ -2,6 +2,7 @@ package com.marmu.handprint.sales_man.landing.activity.billing.add;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.marmu.handprint.R;
+import com.marmu.handprint.sales_man.landing.activity.billing.view_delete_edit.ViewDeleteEditBillingActivity;
 import com.marmu.handprint.z_common.Constants;
 
 import java.text.SimpleDateFormat;
@@ -60,7 +62,7 @@ public class AddBillingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_billing);
+        setContentView(R.layout.activity_sales_man_add_billing);
         tableLayout = (TableLayout) findViewById(R.id.table_layout);
         progressDialog = new ProgressDialog(AddBillingActivity.this);
         progressDialog.setTitle("Loading...");
@@ -319,6 +321,13 @@ public class AddBillingActivity extends AppCompatActivity {
                         .format(new Date(System.currentTimeMillis())));
                 billingDBRef.child(salesKey).child(partyName.getText().toString()).updateChildren(billItem);
                 takenDBRef.child(salesKey).child("sales_order_qty_left").updateChildren(leftQty);
+
+
+                Intent billList = new Intent(AddBillingActivity.this, ViewDeleteEditBillingActivity.class);
+                billList.putExtra("sales_key", salesKey);
+                billList.putExtra("sales_man_name", salesMan);
+                billList.putExtra("sales_route", salesRoute);
+                startActivity(billList);
                 finish();
             }
         }

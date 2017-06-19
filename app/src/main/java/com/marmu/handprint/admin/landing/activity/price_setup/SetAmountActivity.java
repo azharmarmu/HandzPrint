@@ -35,6 +35,8 @@ public class SetAmountActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
+    boolean tableHead;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +55,10 @@ public class SetAmountActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressDialog.dismiss();
                 if (dataSnapshot.getValue() == null) {
+                    tableHead = false;
                     addProd.setText("No Product --> ADD");
                 } else {
+                    tableHead = true;
                     updateTableHeader();
                     updateTableBody(dataSnapshot);
                 }
@@ -138,7 +142,7 @@ public class SetAmountActivity extends AppCompatActivity {
 
             productName.setTextColor(getResources().getColor(R.color.colorAccent));
             productName.setPadding(16, 16, 16, 16);
-            productName.setText(prodKey);
+            productName.setText(prodKey.replace("_", "/"));
             productName.setGravity(Gravity.CENTER);
             tr.addView(productName);
 
@@ -159,7 +163,8 @@ public class SetAmountActivity extends AppCompatActivity {
     }
 
     public void addMore(View view) {
-        addProd.setText("Add More");
+        if (!tableHead)
+            addProd.setText("Add More");
         /* Create a TableRow dynamically */
         TableRow tr = new TableRow(this);
         tr.setLayoutParams(new LayoutParams(

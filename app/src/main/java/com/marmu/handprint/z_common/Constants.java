@@ -12,6 +12,7 @@ public class Constants {
     public static final FirebaseDatabase DATABASE = FirebaseDatabase.getInstance();
     public static final String USERS = "users";
     public static final String ADMIN_TAKEN = "taken";
+    public static final String ADMIN_ORDER = "order";
     public static final String ADMIN_PRODUCT_PRICE = "product_and_price";
     public static final String ADMIN_PRODUCT_QTY = "product_and_qty";
     public static final String SALES_MAN = "sales_man";

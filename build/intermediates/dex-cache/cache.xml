@@ -3,147 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="/home/azharuddin/.android/build-cache/f5cf2346c2a784eb96174920f7c0b37f9300954e/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="aba37a3eec04e174dc59f00cf4bd7992061d847a">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d7869cb345b6c46721be5d7f9ef8a8ee23ed5c72/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/azharuddin/.android/build-cache/8e6ce2663f783989f839dbc49cfcb9e2a6a2fd07/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d410043f93e71bb0179ba86b85726dd080f14b79">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6f226a29a95c719af3d4ae7cb44a99084b0bb972/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/azharuddin/.android/build-cache/07cf410013c065daee8c080f74a2b0167b4dd30e/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ef65e4780d67d06abddd6e2d15dd4e0519ad8d8a">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_bdfff289fd3c0919efeb5a01dd89a23456cd612a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/azharuddin/.android/build-cache/6661bcbafc83f7ff0da5200477d477423bf6f313/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="af26875652e085cd14713ff655bc3aa07960d459">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c64d370c36ce94fdbd3716063687366fc2c65bfa/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/azharuddin/.android/build-cache/f8d0c136393d43bb2ca964df778af85cb9b02fe0/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="a611d7a00671ec4eb3050a21425fae955a38eb8a">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_59bbe3f58a26dd040710070f6822783883597ee1/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/azharuddin/.android/build-cache/9e63f58bd0da6f0e0fa8b4b83e5a972feef3d5e8/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="b985bd4eb1abd0e7e1f49c9cdf80a0d3563bad2a">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_216cb1eeaea5f6ad22cf5a0a45d2f3b99dcc73af/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/azharuddin/.android/build-cache/9f4c01ba9f730dabe575304da4a5c6bcf55ae659/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0e39662b49ef66950c0941aa5fd4c49346a7c341">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_f6aacb5bcaf5165bfd2d315e4ef36045d28e09db/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/azharuddin/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jre7/1.1.2-5/6617f5ad8c76e5141fff9da5b8975081cad24ccf/kotlin-stdlib-jre7-1.1.2-5.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="6617f5ad8c76e5141fff9da5b8975081cad24ccf">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10/kotlin-stdlib-jre7-1.1.2-5_6569f0023d92b13951334c23f076f8505acf06a8/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/azharuddin/.android/build-cache/0291158d144d6c25d180d5a27ba3d5a3e033e7c0/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="8723f4a84a0293f5e9ee76193e6bfec47137f048">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_f68117362713c7ef97c6ceeaaff8b5e7ad49b130/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/azharuddin/.android/build-cache/d543fa578180ca227047d4791131ddb7f355290b/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="6dfa77c356a9a8c13ad61253ed95ed3a746527e6">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_5d16e0943ae0b3f315178ec96ef8a5fa37e7f7da/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e3c6a03cb7d0c85f62f2dde3b4b1bc84eec2139a">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_eef7c9f136c108dc7e688f531de894ab1fb32f0a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/azharuddin/.android/build-cache/5c2526241d4686c62d32ab74722f2c52af972e89/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d68bbf92de9721b02a31a3833abfdc90144c7e39">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_5a79524d30a893e0d7404d1e05471700d298e443/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jar="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/HandzPrint/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_959e5f93c15a942536b8dddb4f1395044d7bdb24/classes.dex" />
+        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/HandzPrint/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_ef4d29a8430c418da14dbd32d48bf2fccf497185/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/azharuddin/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.2-5/508b8b59843653756aeed058a3a421afa0657bcb/kotlin-stdlib-1.1.2-5.jar"
+        jar="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/HandzPrint/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="508b8b59843653756aeed058a3a421afa0657bcb">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10/kotlin-stdlib-1.1.2-5_cefba159b86be89e6386d80a376a186b3ec36531/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/azharuddin/.android/build-cache/c728badbeb3269ce275335f9a8a9514ec7bef475/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="20051ea387377125db14d6c0966662019f0a897c">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_cc379ebf817b127cdad9da1f243dd33d893019d0/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/azharuddin/.android/build-cache/09327c80ca7f1f4340326e1123491ce77b9e3625/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e72c498ef3e345135b6bfdf7fc83c6b905228ade">
-        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/POS)/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c29994fd5e2038d01c2d519922d987e7fb921350/classes.dex" />
+        sha1="51350e79b1ddb0a0c87d32a6049bbff6ad36d1c5">
+        <dex dex="/home/azharuddin/Desktop/Android Projects/HandPrint(ESC/HandzPrint/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_80bdeeca4237ad70f4035b927c079bfdedc05775/classes.dex" />
     </item>
 
 </items>

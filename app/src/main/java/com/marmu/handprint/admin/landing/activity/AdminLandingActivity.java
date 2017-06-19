@@ -3,10 +3,8 @@ package com.marmu.handprint.admin.landing.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.marmu.handprint.R;
 import com.marmu.handprint.admin.landing.activity.create_order.CreateOrderActivity;
 import com.marmu.handprint.admin.landing.activity.items_return.ReturnActivity;
@@ -23,10 +21,6 @@ public class AdminLandingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_landing);
-
-        //device Token
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d("Token", refreshedToken);
     }
 
     public void salesmanClick(View view) {

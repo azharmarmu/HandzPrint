@@ -1,5 +1,6 @@
 package com.marmu.handprint.sales_man.taken;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -74,6 +75,7 @@ public class TakenActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void setRoute() {
         //get salesman_name
         takenDBRef.addValueEventListener(new ValueEventListener() {
@@ -235,16 +237,11 @@ public class TakenActivity extends AppCompatActivity {
         landing.putExtra("sales_man_name", salesMan);
         landing.putExtra("sales_route", sp_route.getSelectedItem().toString());
         startActivity(landing);
-        finish();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-    }
-
-    public void backPress(View view) {
-        onBackPressed();
     }
 
     public void signOut(View view) {

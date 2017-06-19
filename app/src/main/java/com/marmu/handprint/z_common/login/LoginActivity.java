@@ -57,9 +57,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         adminPhoneNumber.add("9487266427");
         adminPhoneNumber.add("8681034261");
         adminPhoneNumber.add("9449802606");
-
-        //permissions
-        Permissions.SMS(LoginActivity.this);
     }
 
     private void isLoggedIn() {
@@ -68,6 +65,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             getUserDetails(uid);
         } else {
             setContentView(R.layout.activity_z_login);
+
+            //permissions
+            Permissions.SMS(LoginActivity.this);
+
             adminTab = (TextView) findViewById(R.id.tv_admin);
             salesManTab = (TextView) findViewById(R.id.tv_sales_man);
 

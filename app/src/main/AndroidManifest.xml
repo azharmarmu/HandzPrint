@@ -38,8 +38,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".z_common.login.LoginActivity" />
-        <activity android:name=".admin.landing.activity.AdminLandingActivity" />
         <activity android:name=".z_common.login.OTPActivity" />
+        <activity android:name=".admin.landing.activity.AdminLandingActivity" />
         <activity android:name=".admin.landing.activity.taken.TakenActivity" />
         <activity android:name=".admin.landing.activity.sales.SalesActivity" />
         <activity android:name=".admin.landing.activity.items_return.ReturnActivity" />
@@ -48,6 +48,10 @@
         <activity android:name=".admin.landing.activity.sales.party.report.PartyReportActivity" />
         <activity android:name=".admin.landing.activity.price_setup.SetAmountActivity" />
         <activity android:name=".admin.landing.activity.items_return.report.ReturnReportActivity" />
+        <activity android:name=".admin.landing.activity.sales_man.SalesManActivity" />
+        <activity android:name=".admin.landing.activity.create_order.CreateOrderActivity" />
+        <activity android:name=".admin.landing.activity.sales.party.report.ReportParty" />
+        <activity android:name=".admin.landing.activity.sales.product.report.ProductReportActivity" />
         <activity android:name=".sales_man.landing.activity.SalesManLandingActivity" />
         <activity android:name=".sales_man.taken.TakenActivity" />
         <activity android:name=".sales_man.landing.activity.price.PriceActivity" />
@@ -59,10 +63,6 @@
         <activity android:name=".sales_man.landing.activity.order.create.CreateOrderActivity" />
         <activity android:name=".sales_man.landing.activity.billing.add.AddBillingActivity" />
         <activity android:name=".sales_man.landing.activity.billing.view_delete_edit.ViewDeleteEditBillingActivity" />
-        <activity android:name=".admin.landing.activity.sales_man.SalesManActivity" />
-        <activity android:name=".admin.landing.activity.create_order.CreateOrderActivity" />
-        <activity android:name=".admin.landing.activity.sales.party.report.ReportParty" />
-        <activity android:name=".admin.landing.activity.sales.product.report.ProductReportActivity" />
 
         <receiver
             android:name=".z_common.sms.SMSReceiver"
@@ -72,17 +72,22 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".z_common.firebase_push.MyFirebaseMessagingService">
+        <service
+            android:name=".z_common.firebase_push.MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-        <service android:name=".z_common.firebase_push.MyFirebaseInstanceIDService">
+        <service
+            android:name=".z_common.firebase_push.MyFirebaseInstanceIDService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".sales_man.landing.activity.order.OrderBilling"></activity>
     </application>
 
 </manifest>

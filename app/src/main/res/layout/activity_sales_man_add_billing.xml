@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:background="@drawable/box_white_thick_border_corner_ripple"
+            android:background="@drawable/box_white_thick_border"
             android:gravity="center"
             android:padding="16dp"
             android:text="Total"

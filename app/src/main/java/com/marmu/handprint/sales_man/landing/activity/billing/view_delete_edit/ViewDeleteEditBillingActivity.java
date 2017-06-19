@@ -5,10 +5,8 @@ import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -269,8 +267,8 @@ public class ViewDeleteEditBillingActivity extends AppCompatActivity {
                 productName.setGravity(Gravity.CENTER);
                 tr.addView(productName);
 
-            /* Product QTY --> EditText */
-                EditText productQTY = new EditText(this);
+            /* Product QTY --> TextView */
+                TextView productQTY = new TextView(this);
                 productQTY.setLayoutParams(params);
 
                 productQTY.setTextColor(getResources().getColor(R.color.colorAccent));
@@ -295,88 +293,11 @@ public class ViewDeleteEditBillingActivity extends AppCompatActivity {
                 tableLayout.addView(tr);
             }
             leftQTY();
-            addQTy();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
 
 
-    }
-
-    private void addQTy() {
-        final HashMap<String, Object> prodDetails = productDetails;
-        for (int i = 1; i < tableLayout.getChildCount(); i++) {
-            final HashMap<String, Object> itemDetails = new HashMap<>();
-            TableRow tableRow = (TableRow) tableLayout.getChildAt(i);
-            if (tableRow != null) {
-                final TextView productName = (TextView) tableRow.getChildAt(0);
-                final EditText productQTY = (EditText) tableRow.getChildAt(1);
-                final TextView productPrice = (TextView) tableRow.getChildAt(2);
-
-                productQTY.addTextChangedListener(new TextWatcher() {
-
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        String prodName = productName.getText().toString();
-                        String prodQTY = productQTY.getText().toString();
-                        TextView totalBill = (TextView) findViewById(R.id.tv_billing_total);
-                        HashMap<String, Object> localProdDetails = (HashMap<String, Object>) productDetails.get(prodName);
-                        if (priceProd.containsKey(prodName) &&
-                                !prodQTY.isEmpty() &&
-                                Integer.parseInt(prodQTY) <= Integer.parseInt(localProdDetails.get("prod_qty").toString())) {
-                            int price = Integer.parseInt(prodQTY) *
-                                    Integer.parseInt(priceProd.get(prodName).toString());
-                            if (!prodName.isEmpty() && !prodQTY.isEmpty() && Integer.parseInt(prodQTY) > 0) {
-                                billItem.remove("product");
-                                total -= price;
-                                totalBill.setText(String.valueOf(total));
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        String prodName = productName.getText().toString();
-                        String prodQTY = productQTY.getText().toString();
-                        HashMap<String, Object> localProdDetails = (HashMap<String, Object>) productDetails.get(prodName);
-                        if (!prodQTY.isEmpty() &&
-                                Integer.parseInt(prodQTY) > Integer.parseInt(localProdDetails.get("prod_qty").toString())) {
-                            productQTY.setError("Taken good less");
-                            productQTY.requestFocus();
-                            productPrice.setText(String.valueOf(0));
-                        }
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        String prodName = productName.getText().toString();
-                        String prodQTY = productQTY.getText().toString();
-                        HashMap<String, Object> localProdDetails = (HashMap<String, Object>) productDetails.get(prodName);
-                        TextView totalBill = (TextView) findViewById(R.id.tv_billing_total);
-                        if (!prodQTY.isEmpty() &&
-                                Integer.parseInt(prodQTY) <= Integer.parseInt(localProdDetails.get("prod_qty").toString())) {
-                            int price = Integer.parseInt(prodQTY) *
-                                    Integer.parseInt(priceProd.get(prodName).toString());
-                            productPrice.setText(String.valueOf(price));
-                            if (!prodName.isEmpty() && !prodQTY.isEmpty() && Integer.parseInt(prodQTY) > 0) {
-                                remainingQty.put(prodName, String.valueOf(
-                                        Integer.parseInt(localProdDetails.get("prod_qty").toString()) -
-                                                Integer.parseInt(prodQTY)));
-                                itemDetails.put("prod_qty", prodQTY);
-                                itemDetails.put("prod_name", prodName);
-                                itemDetails.put("prod_sub_total", productPrice.getText().toString());
-                                prodDetails.put(prodName, itemDetails);
-                                billItem.put("product", prodDetails);
-                                total += price;
-                                totalBill.setText(String.valueOf(total));
-                            }
-                        } else {
-                            productPrice.setText("");
-                        }
-                    }
-                });
-            }
-        }
     }
 
     @SuppressLint("SimpleDateFormat")

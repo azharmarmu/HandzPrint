@@ -16,7 +16,7 @@ class IndexableView : AppCompatActivity() {
         val action = intent.action
         val data = intent.data
 
-        val actionView = findViewById(R.id.tv_action_view) as TextView
+        val actionView = findViewById<TextView>(R.id.tv_action_view)
         actionView.text = "Action:  $action \nData: $data"
 
     }

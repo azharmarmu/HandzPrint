@@ -63,7 +63,7 @@ public class AddBillingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sales_man_add_billing);
-        tableLayout = (TableLayout) findViewById(R.id.table_layout);
+        tableLayout = findViewById(R.id.table_layout);
         progressDialog = new ProgressDialog(AddBillingActivity.this);
         progressDialog.setTitle("Loading...");
 
@@ -210,8 +210,8 @@ public class AddBillingActivity extends AppCompatActivity {
             productQTY.setInputType(InputType.TYPE_CLASS_NUMBER);
             tr.addView(productQTY);
 
-            /* Product Price --> TextView */
-            TextView productPrice = new TextView(this);
+            /* Product Price --> EditText */
+            EditText productPrice = new EditText(this);
             productPrice.setLayoutParams(params);
 
             productPrice.setTextColor(getResources().getColor(R.color.colorAccent));
@@ -243,7 +243,7 @@ public class AddBillingActivity extends AppCompatActivity {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                         String prodQTY = productQTY.getText().toString();
-                        TextView totalBill = (TextView) findViewById(R.id.tv_billing_total);
+                        TextView totalBill = findViewById(R.id.tv_billing_total);
                         if (priceProd.containsKey(prodName) &&
                                 !prodQTY.isEmpty() &&
                                 Integer.parseInt(prodQTY) <= Integer.parseInt(productDetails.get(prodName).toString())) {
@@ -272,7 +272,7 @@ public class AddBillingActivity extends AppCompatActivity {
                     @Override
                     public void afterTextChanged(Editable s) {
                         String prodQTY = productQTY.getText().toString();
-                        TextView totalBill = (TextView) findViewById(R.id.tv_billing_total);
+                        TextView totalBill = findViewById(R.id.tv_billing_total);
 
                         if (priceProd.containsKey(prodName) &&
                                 !prodQTY.isEmpty() &&
@@ -286,6 +286,7 @@ public class AddBillingActivity extends AppCompatActivity {
                                         Integer.parseInt(productDetails.get(prodName).toString()) -
                                                 Integer.parseInt(prodQTY)));
                                 itemDetails.put("prod_qty", prodQTY);
+                                itemDetails.put("prod_price", priceProd.get(prodName));
                                 itemDetails.put("prod_name", prodName);
                                 itemDetails.put("prod_sub_total", productPrice.getText().toString());
                                 prodDetails.put(prodName, itemDetails);
@@ -305,7 +306,7 @@ public class AddBillingActivity extends AppCompatActivity {
     @SuppressLint("SimpleDateFormat")
     public void generateBill(View view) {
 
-        final EditText partyName = (EditText) findViewById(R.id.et_party_name);
+        final EditText partyName = findViewById(R.id.et_party_name);
 
         if (TextUtils.isEmpty(partyName.getText())) {
             partyName.setError("Party Name is Mandatory");

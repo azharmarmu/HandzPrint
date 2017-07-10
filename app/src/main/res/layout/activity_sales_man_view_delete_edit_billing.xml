@@ -14,43 +14,38 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorAccent">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="@string/app_name"
-                android:onClick="backPress"
-                android:src="@drawable/ic_arrow_back" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Billing"
-                android:textColor="@color/colorWhite"
-                android:textSize="24sp" />
-        </android.support.v7.widget.Toolbar>
+            android:background="@color/colorAccent" />
 
         <LinearLayout
             android:id="@+id/view_delete_edit_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:background="@drawable/box_white_thick_border_ripple">
+                android:background="@drawable/box_white_thick_border_corner_ripple">
 
                 <Spinner
                     android:id="@+id/sp_party_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
                     android:clickable="true"
                     android:padding="16dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_arrow" />
+
             </RelativeLayout>
 
             <android.support.design.widget.TextInputLayout

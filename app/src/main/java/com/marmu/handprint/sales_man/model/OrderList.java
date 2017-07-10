@@ -1,12 +1,13 @@
 package com.marmu.handprint.sales_man.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * Created by azharuddin on 16/6/17.
  */
 
-public class OrderList {
+public class OrderList implements Serializable {
     private String key, partyName, route, salesMan, process, salesDate;
     private HashMap<String, Object> salesOrderQTY;
 

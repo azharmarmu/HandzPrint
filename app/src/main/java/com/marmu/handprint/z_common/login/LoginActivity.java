@@ -1,6 +1,7 @@
 package com.marmu.handprint.z_common.login;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +29,6 @@ import com.marmu.handprint.admin.landing.activity.AdminLandingActivity;
 import com.marmu.handprint.sales_man.taken.TakenActivity;
 import com.marmu.handprint.z_common.Constants;
 import com.marmu.handprint.z_common.Permissions;
-import com.marmu.handprint.z_common.ProgressBarHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        FirebaseCrash.report(new Exception("Login Activity Exception"));
         isLoggedIn();
 
         //add phone number
@@ -69,11 +70,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //permissions
             Permissions.SMS(LoginActivity.this);
 
-            adminTab = (TextView) findViewById(R.id.tv_admin);
-            salesManTab = (TextView) findViewById(R.id.tv_sales_man);
+            adminTab = findViewById(R.id.tv_admin);
+            salesManTab = findViewById(R.id.tv_sales_man);
 
-            adminLayout = (LinearLayout) findViewById(R.id.admin_layout);
-            salesManLayout = (LinearLayout) findViewById(R.id.sales_man_layout);
+            adminLayout = findViewById(R.id.admin_layout);
+            salesManLayout = findViewById(R.id.sales_man_layout);
 
             adminTab.setOnClickListener(this);
             salesManTab.setOnClickListener(this);
@@ -116,7 +117,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         salesManDBRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                sp_name = (Spinner) findViewById(R.id.sp_name);
+                sp_name = findViewById(R.id.sp_name);
                 if (dataSnapshot.getValue() != null) {
                     HashMap<String, Object> salesManDetails = (HashMap<String, Object>) dataSnapshot.getValue();
 
@@ -146,7 +147,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void loginAdmin(View view) {
-        EditText et_phone = (EditText) findViewById(R.id.et_mobile_admin);
+        EditText et_phone = findViewById(R.id.et_mobile_admin);
         String phone = et_phone.getText().toString();
 
         if (!phone.isEmpty() && phone.length() == 10) {
@@ -163,7 +164,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void loginSalesMan(View view) {
         if (sp_name.getChildCount() > 0) {
             String salesMan = sp_name.getSelectedItem().toString();
-            EditText et_phone = (EditText) findViewById(R.id.et_mobile_sales_man);
+            EditText et_phone = findViewById(R.id.et_mobile_sales_man);
             String phone = et_phone.getText().toString();
             String orgPhone = salesManPhone.get(salesManName.indexOf(salesMan));
 
@@ -178,8 +179,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void phoneNumberVerification(String phoneNumber, final String user, final String salesMan) {
-        final ProgressBarHandler progressBarHandler = new ProgressBarHandler(LoginActivity.this);
-        progressBarHandler.show();
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
                 60,                 // Timeout duration
@@ -190,7 +192,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onVerificationCompleted(PhoneAuthCredential credential) {
                         //Instant verification or Auto-retrieval.
-                        progressBarHandler.hide();
+                        progressDialog.hide();
                         Log.d("Success", "onVerificationCompleted:" + credential);
                         FirebasePhoneLogin.signInWithPhoneAuthCredential(getApplicationContext(),
                                 credential,
@@ -202,7 +204,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onVerificationFailed(FirebaseException e) {
                         // This callback is invoked in an invalid request for verification is made,
                         // for instance if the the phone number format is not valid.
-                        progressBarHandler.hide();
+                        progressDialog.hide();
                         Log.w("Failed", "onVerificationFailed", e);
 
                         if (e instanceof FirebaseAuthInvalidCredentialsException) {
@@ -230,7 +232,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         // now need to ask the user to enter the code and then construct a credential
                         // by combining the code with a verification ID.
 
-                        progressBarHandler.hide();
+                        progressDialog.hide();
                         Log.d("OTP Code", "onCodeSent:" + verificationId);
 
                         Intent otpActivity = new Intent(LoginActivity.this, OTPActivity.class);

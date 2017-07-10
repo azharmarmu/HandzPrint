@@ -1,5 +1,6 @@
 package com.marmu.handprint.sales_man.landing.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,13 +18,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.marmu.handprint.R;
 import com.marmu.handprint.sales_man.adapter.OrderAdapter;
 import com.marmu.handprint.sales_man.landing.activity.billing.BillingActivity;
-import com.marmu.handprint.sales_man.landing.activity.price.PriceActivity;
+import com.marmu.handprint.sales_man.landing.activity.price_setup.SetAmountActivity;
 import com.marmu.handprint.sales_man.landing.activity.view_stock.ViewStockActivity;
 import com.marmu.handprint.sales_man.model.OrderList;
 import com.marmu.handprint.z_common.Constants;
 import com.marmu.handprint.z_common.login.LoginActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -50,32 +53,40 @@ public class SalesManLandingActivity extends AppCompatActivity {
         checkOrder();
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void checkOrder() {
         orderDBRef.addValueEventListener(new ValueEventListener() {
             @SuppressWarnings("ConstantConditions")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                RelativeLayout orderContainer = (RelativeLayout) findViewById(R.id.order_container);
+                RelativeLayout orderContainer = findViewById(R.id.order_container);
                 if (dataSnapshot.getValue() != null) {
-                    orderContainer.setVisibility(View.VISIBLE);
+
 
                     List<OrderList> orderLists = new ArrayList<>();
                     Iterator i = dataSnapshot.getChildren().iterator();
 
+                    boolean visible = false;
+
                     while (i.hasNext()) {
                         String key = ((DataSnapshot) i.next()).getKey();
-                        String partyName, route, salesMan, process, salesDate;
+                        String partyName, route, saleMan, process, salesDate;
                         HashMap<String, Object> salesOrderQTY;
                         try {
-                            partyName = dataSnapshot.child(key).child("party_name").getValue().toString();
+                            partyName = dataSnapshot.child(key).child("partyName").getValue().toString();
                             route = dataSnapshot.child(key).child("sales_route").getValue().toString();
-                            salesMan = dataSnapshot.child(key).child("sales_man_name").getValue().toString();
+                            saleMan = dataSnapshot.child(key).child("sales_man_name").getValue().toString();
                             process = dataSnapshot.child(key).child("process").getValue().toString();
                             salesDate = String.valueOf(dataSnapshot.child(key).child("sales_date").getValue());
                             salesOrderQTY = (HashMap<String, Object>) dataSnapshot.child(key).child("sales_order_qty").getValue();
 
-                            if (process.equalsIgnoreCase("start")) {
-                                orderLists.add(new OrderList(key, partyName, route, salesMan, process, salesDate, salesOrderQTY));
+                            String currentDate = new SimpleDateFormat("dd/MM/yyyy")
+                                    .format(new Date(System.currentTimeMillis()));
+                            if (process.equalsIgnoreCase("start") &&
+                                    salesRoute.equalsIgnoreCase(route) &&
+                                    salesDate.equals(currentDate)) {
+                                visible = true;
+                                orderLists.add(new OrderList(key, partyName, route, saleMan, process, salesDate, salesOrderQTY));
                             }
 
                         } catch (NullPointerException e) {
@@ -83,9 +94,15 @@ public class SalesManLandingActivity extends AppCompatActivity {
                         }
                     }
 
+                    if (visible) {
+                        orderContainer.setVisibility(View.VISIBLE);
+                    } else {
+                        orderContainer.setVisibility(View.GONE);
+                    }
 
-                    RecyclerView orderView = (RecyclerView) findViewById(R.id.recycler_view);
-                    OrderAdapter mAdapter = new OrderAdapter(orderLists, getApplicationContext());
+
+                    RecyclerView orderView = findViewById(R.id.recycler_view);
+                    OrderAdapter mAdapter = new OrderAdapter(salesKey, salesMan, salesRoute, orderLists, getApplicationContext());
 
                     //Recycler-view LayoutManager
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -119,7 +136,7 @@ public class SalesManLandingActivity extends AppCompatActivity {
     }
 
     public void priceClick(View view) {
-        Intent price = new Intent(SalesManLandingActivity.this, PriceActivity.class);
+        Intent price = new Intent(SalesManLandingActivity.this, SetAmountActivity.class);
         price.putExtra("sales_key", salesKey);
         price.putExtra("sales_man_name", salesMan);
         price.putExtra("sales_route", salesRoute);

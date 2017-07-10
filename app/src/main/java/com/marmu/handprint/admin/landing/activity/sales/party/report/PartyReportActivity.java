@@ -1,5 +1,6 @@
 package com.marmu.handprint.admin.landing.activity.sales.party.report;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -38,7 +39,7 @@ public class PartyReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_party_report);
-        tableLayout = (TableLayout) findViewById(R.id.table_layout);
+        tableLayout = findViewById(R.id.table_layout);
 
         String date = getIntent().getStringExtra("date").replace("-", "/");
         String route = getIntent().getStringExtra("route");
@@ -62,10 +63,11 @@ public class PartyReportActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void evaluate(DataSnapshot dataSnapshot, String date, String route) {
         HashMap<String, Object> listParty = (HashMap<String, Object>) dataSnapshot.getValue();
 
-        TextView noSale = (TextView) findViewById(R.id.no_sales);
+        TextView noSale = findViewById(R.id.no_sales);
 
         tableLayout.setVisibility(View.GONE);
         noSale.setVisibility(View.GONE);

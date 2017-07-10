@@ -53,8 +53,8 @@ public class TakenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sales_man_taken);
-        tableLayout = (TableLayout) findViewById(R.id.table_layout);
-        sp_route = (Spinner) findViewById(R.id.sp_route);
+        tableLayout = findViewById(R.id.table_layout);
+        sp_route = findViewById(R.id.sp_route);
         salesMan = getIntent().getStringExtra("sales_man_name");
         progressDialog = new ProgressDialog(TakenActivity.this);
         progressDialog.setTitle("Loading...");
@@ -81,42 +81,43 @@ public class TakenActivity extends AppCompatActivity {
         takenDBRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                HashMap<String, Object> salesManDetails = (HashMap<String, Object>) dataSnapshot.getValue();
+                if (dataSnapshot.getValue() != null) {
+                    HashMap<String, Object> salesManDetails = (HashMap<String, Object>) dataSnapshot.getValue();
+                    salesRoute = new ArrayList<>();
+                    LinearLayout routeContainer = findViewById(R.id.route_container);
+                    TextView noSales = findViewById(R.id.no_sales);
+                    routeContainer.setVisibility(View.GONE);
+                    noSales.setVisibility(View.GONE);
 
-                LinearLayout routeContainer = (LinearLayout) findViewById(R.id.route_container);
-                TextView noSales = (TextView) findViewById(R.id.no_sales);
-                routeContainer.setVisibility(View.GONE);
-                noSales.setVisibility(View.GONE);
+                    assert salesManDetails != null;
+                    for (String key : salesManDetails.keySet()) {
+                        HashMap<String, Object> sales = (HashMap<String, Object>) salesManDetails.get(key);
+                        String currentDate = new SimpleDateFormat("dd/MM/yyyy")
+                                .format(new Date(System.currentTimeMillis()));
+                        String salesDate = sales.get("sales_date").toString();
+                        if (sales.get("sales_man_name").toString().equalsIgnoreCase(salesMan)
+                                && salesDate.equals(currentDate)) {
+                            salesKey.add(key);
+                            salesProcess.add((String) sales.get("process"));
+                            salesRoute.add((String) sales.get("sales_route"));
+                            salesOrderQty.add((HashMap<String, Object>) sales.get("sales_order_qty_left"));
+                        }
+                    }
 
-                assert salesManDetails != null;
-                for (String key : salesManDetails.keySet()) {
-                    HashMap<String, Object> sales = (HashMap<String, Object>) salesManDetails.get(key);
-                    String currentDate = new SimpleDateFormat("dd/MM/yyyy")
-                            .format(new Date(System.currentTimeMillis()));
-                    String salesDate = sales.get("sales_date").toString();
-                    if (sales.get("sales_man_name").toString().equalsIgnoreCase(salesMan)
-                            && salesDate.equals(currentDate)) {
-                        salesKey.add(key);
-                        salesProcess.add((String) sales.get("process"));
-                        salesRoute.add((String) sales.get("sales_route"));
-                        salesOrderQty.add((HashMap<String, Object>) sales.get("sales_order_qty_left"));
+                    if (salesRoute.size() > 0) {
+                        routeContainer.setVisibility(View.VISIBLE);
+                        //sp_route
+                        ArrayAdapter<String> nameAdapter = new ArrayAdapter<>(TakenActivity.this,
+                                android.R.layout.simple_spinner_item, salesRoute);
+                        nameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        sp_route.setAdapter(nameAdapter);
+
+                        buttonContext();
+                    } else {
+                        noSales.setVisibility(View.VISIBLE);
                     }
                 }
-
-                if (salesRoute.size() > 0) {
-                    routeContainer.setVisibility(View.VISIBLE);
-                    //sp_route
-                    ArrayAdapter<String> nameAdapter = new ArrayAdapter<>(TakenActivity.this,
-                            android.R.layout.simple_spinner_item, salesRoute);
-                    nameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    sp_route.setAdapter(nameAdapter);
-
-                    buttonContext();
-                } else {
-                    noSales.setVisibility(View.VISIBLE);
-                }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.e("Error", databaseError.getMessage());
@@ -126,7 +127,7 @@ public class TakenActivity extends AppCompatActivity {
 
     private void buttonContext() {
         int i = salesRoute.indexOf(sp_route.getSelectedItem().toString());
-        TextView start = (TextView) findViewById(R.id.tv_submit);
+        TextView start = findViewById(R.id.tv_submit);
         if (salesProcess.get(i).equalsIgnoreCase("start")) {
             start.setText("Start");
         } else if (salesProcess.get(i).equalsIgnoreCase("closed")) {
@@ -228,7 +229,7 @@ public class TakenActivity extends AppCompatActivity {
     }
 
     public void startTaken(View view) {
-        TextView start = (TextView) findViewById(R.id.tv_submit);
+        TextView start = findViewById(R.id.tv_submit);
         if (start.getText().toString().equalsIgnoreCase("start")) {
             takenDBRef.child(saleKey).child("process").setValue("started");
         }

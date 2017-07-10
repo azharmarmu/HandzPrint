@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".admin.landing.activity.sales_man.SalesManActivity">
+    tools:context="com.marmu.handprint.admin.landing.activity.sales_man.SalesManActivity">
 
     <!--Tool bar-->
     <android.support.v7.widget.Toolbar
@@ -23,48 +24,37 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Taken"
+            android:text="Sales Man"
             android:textColor="@color/colorWhite"
             android:textSize="24sp" />
     </android.support.v7.widget.Toolbar>
 
-    <!--Sales Man Name-->
-    <EditText
-        android:id="@+id/et_sales_man_name"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/box_white_thick_border_corner_ripple"
-        android:hint="Sales man name"
-        android:inputType="text"
+        android:gravity="center"
+        android:onClick="addSalesManClick"
         android:padding="16dp"
-        tools:ignore="LabelFor" />
-
-    <!--Phone-->
-    <EditText
-        android:id="@+id/et_mobile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@drawable/box_white_thick_border_corner_ripple"
-        android:hint="Mobile Number"
-        android:inputType="phone"
-        android:maxLength="10"
-        android:minEms="10"
-        android:padding="16dp"
-        tools:ignore="LabelFor" />
+        android:text="Add"
+        android:textColor="@color/colorBlack"
+        android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/tv_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@drawable/box_accent_ripple"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/box_white_thick_border_corner_ripple"
         android:gravity="center"
-        android:onClick="addSalesMan"
+        android:onClick="viewSalesManClick"
         android:padding="16dp"
-        android:text="ADD"
-        android:textColor="@color/colorWhite"
-        android:textSize="25sp" />
+        android:text="View"
+        android:textColor="@color/colorBlack"
+        android:textSize="20sp" />
 
 </LinearLayout>

@@ -53,7 +53,8 @@
                 android:id="@+id/order_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent2">
+                android:background="@color/colorAccent2"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/order_head"
@@ -98,7 +99,7 @@
                 android:gravity="center"
                 android:onClick="priceClick"
                 android:padding="16dp"
-                android:text="Price"
+                android:text="Price/Setup"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp" />
 

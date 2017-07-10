@@ -50,7 +50,7 @@ public class ViewStockActivity extends AppCompatActivity {
         salesMan = getIntent().getStringExtra("sales_man_name");
         salesRoute = getIntent().getStringExtra("sales_route");
 
-        tableLayout = (TableLayout) findViewById(R.id.table_layout);
+        tableLayout = findViewById(R.id.table_layout);
         progressDialog = new ProgressDialog(ViewStockActivity.this);
         progressDialog.setTitle("Loading...");
 

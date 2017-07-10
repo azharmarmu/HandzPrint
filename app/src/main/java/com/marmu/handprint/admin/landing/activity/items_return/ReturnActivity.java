@@ -1,5 +1,6 @@
 package com.marmu.handprint.admin.landing.activity.items_return;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,8 +20,11 @@ import com.marmu.handprint.R;
 import com.marmu.handprint.admin.landing.activity.items_return.report.ReturnReportActivity;
 import com.marmu.handprint.z_common.Constants;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,8 +42,8 @@ public class ReturnActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_return);
-        date = (EditText) findViewById(R.id.et_date);
-        spinner = (Spinner) findViewById(R.id.sp_route);
+        date = findViewById(R.id.et_date);
+        spinner = findViewById(R.id.sp_route);
         setRoute();
     }
 
@@ -74,12 +78,13 @@ public class ReturnActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("SimpleDateFormat")
     public void datePicker(View view) {
         // Get Current Date
         final Calendar c = Calendar.getInstance();
-        int mYear = c.get(Calendar.YEAR);
-        int mMonth = c.get(Calendar.MONTH);
-        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        final int mYear = c.get(Calendar.YEAR);
+        final int mMonth = c.get(Calendar.MONTH);
+        final int mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
@@ -88,13 +93,26 @@ public class ReturnActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        Calendar now = Calendar.getInstance();
-                        if (dayOfMonth <= now.get(Calendar.DAY_OF_MONTH)) {
-                            date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                            date.clearFocus();
-                        } else {
-                            date.setError("Choose Valid date");
-                            date.requestFocus();
+                        String pYear = String.valueOf(year);
+                        String pMonth = String.valueOf(monthOfYear + 1);
+                        String pDay = String.valueOf(dayOfMonth);
+
+                        String cYear = String.valueOf(mYear);
+                        String cMonth = String.valueOf(mMonth + 1);
+                        String cDay = String.valueOf(mDay);
+
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                        try {
+                            Date pickedDate = formatter.parse((pDay + "-" + pMonth + "-" + pYear));
+                            Date currentDate = formatter.parse((cDay + "-" + cMonth + "-" + cYear));
+                            if (pickedDate.compareTo(currentDate) <= 0) {
+                                date.setText(dayOfMonth + "/0" + (monthOfYear + 1) + "/" + year);
+                                date.clearFocus();
+                            } else {
+                                date.setError("Choose Valid date");
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
                     }
                 }, mYear, mMonth, mDay);

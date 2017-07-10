@@ -13,7 +13,7 @@
         android:background="@color/colorAccent" />
 
     <TextView
-        android:id="@+id/party_name"
+        android:id="@+id/sales_man_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -21,35 +21,21 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="16dp"
         android:padding="8dp"
-        android:text="Party Name"
+        android:text="Name / Phone"
         android:textColor="@color/colorBlack"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/order_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/view"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/order_close"
-        android:background="@drawable/box_accent_ripple"
-        android:padding="8dp"
-        android:text="View"
-        android:textColor="@color/colorWhite"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/order_close"
+        android:id="@+id/edit_sales_man"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@id/view"
         android:layout_centerVertical="true"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/box_white_thick_border_ripple"
+        android:background="@drawable/box_accent_ripple"
         android:padding="8dp"
-        android:text="Close"
-        android:textColor="@color/colorAccent"
+        android:text="Edit"
+        android:textColor="@color/colorWhite"
         android:textSize="16sp" />
 </RelativeLayout>

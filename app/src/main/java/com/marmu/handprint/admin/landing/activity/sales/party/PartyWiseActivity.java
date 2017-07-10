@@ -1,5 +1,6 @@
 package com.marmu.handprint.admin.landing.activity.sales.party;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,8 +20,11 @@ import com.marmu.handprint.R;
 import com.marmu.handprint.admin.landing.activity.sales.party.report.PartyReportActivity;
 import com.marmu.handprint.z_common.Constants;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,12 +42,11 @@ public class PartyWiseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_party_wise);
-        date = (EditText) findViewById(R.id.et_date);
-        spinner = (Spinner) findViewById(R.id.sp_route);
-        setRoute();
+        date = findViewById(R.id.et_date);
+        spinner = findViewById(R.id.sp_route);
     }
 
-    private void setRoute() {
+    private void setRoute(final String dte) {
         takenDBRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -53,7 +56,8 @@ public class PartyWiseActivity extends AppCompatActivity {
                     assert salesManDetails != null;
                     for (String key : salesManDetails.keySet()) {
                         HashMap<String, Object> sales = (HashMap<String, Object>) salesManDetails.get(key);
-                        if (!salesRoute.contains(sales.get("sales_route").toString())) {
+                        if (!salesRoute.contains(sales.get("sales_route").toString()) &&
+                                dte.equals(sales.get("sales_date").toString())) {
                             salesRoute.add((String) sales.get("sales_route"));
                         }
                     }
@@ -73,13 +77,13 @@ public class PartyWiseActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("SimpleDateFormat")
     public void datePicker(View view) {
-
         // Get Current Date
         final Calendar c = Calendar.getInstance();
-        int mYear = c.get(Calendar.YEAR);
-        int mMonth = c.get(Calendar.MONTH);
-        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        final int mYear = c.get(Calendar.YEAR);
+        final int mMonth = c.get(Calendar.MONTH);
+        final int mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
@@ -88,12 +92,27 @@ public class PartyWiseActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        Calendar now = Calendar.getInstance();
-                        if (dayOfMonth <= now.get(Calendar.DAY_OF_MONTH)) {
-                            date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                            date.clearFocus();
-                        } else {
-                            date.setError("Choose Valid date");
+                        String pYear = String.valueOf(year);
+                        String pMonth = String.valueOf(monthOfYear + 1);
+                        String pDay = String.valueOf(dayOfMonth);
+
+                        String cYear = String.valueOf(mYear);
+                        String cMonth = String.valueOf(mMonth + 1);
+                        String cDay = String.valueOf(mDay);
+
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                        try {
+                            Date pickedDate = formatter.parse((pDay + "-" + pMonth + "-" + pYear));
+                            Date currentDate = formatter.parse((cDay + "-" + cMonth + "-" + cYear));
+                            if (pickedDate.compareTo(currentDate) <= 0) {
+                                date.setText(dayOfMonth + "/0" + (monthOfYear + 1) + "/" + year);
+                                date.clearFocus();
+                                setRoute(date.getText().toString());
+                            } else {
+                                date.setError("Choose Valid date");
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
                     }
                 }, mYear, mMonth, mDay);

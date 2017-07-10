@@ -59,17 +59,32 @@
                 android:padding="16dp" />
         </RelativeLayout>
 
-        <!--Route-->
-
-        <EditText
-            android:id="@+id/et_route"
+        <!--Sales Man name-->
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@drawable/box_white_thick_border_corner_ripple"
-            android:hint="Route"
-            android:padding="16dp" />
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/box_white_thick_border_corner_ripple">
 
+            <Spinner
+                android:id="@+id/sp_route"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:padding="16dp" />
+        </RelativeLayout>
+
+        <!--Party Name-->
+        <EditText
+            android:id="@+id/et_party_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/box_white_thick_border_corner_ripple"
+            android:hint="Party Name"
+            android:padding="16dp" />
 
         <TableLayout
             android:id="@+id/table_layout"

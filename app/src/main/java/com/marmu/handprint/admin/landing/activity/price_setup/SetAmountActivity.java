@@ -1,12 +1,10 @@
 package com.marmu.handprint.admin.landing.activity.price_setup;
 
 import android.app.ProgressDialog;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +29,6 @@ public class SetAmountActivity extends AppCompatActivity {
     TableLayout tableLayout;
     TextView addProd;
     DatabaseReference productDBRef = Constants.DATABASE.getReference(Constants.ADMIN_PRODUCT_PRICE);
-    DatabaseReference qtyDBRef = Constants.DATABASE.getReference(Constants.ADMIN_PRODUCT_QTY);
 
     ProgressDialog progressDialog;
 
@@ -41,8 +38,8 @@ public class SetAmountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_price_set_amount);
-        tableLayout = (TableLayout) findViewById(R.id.table_layout);
-        addProd = (TextView) findViewById(R.id.tv_add_prod);
+        tableLayout = findViewById(R.id.table_layout);
+        addProd = findViewById(R.id.tv_add_prod);
         progressDialog = new ProgressDialog(SetAmountActivity.this);
         progressDialog.setTitle("Loading...");
         updateUI();
@@ -59,7 +56,6 @@ public class SetAmountActivity extends AppCompatActivity {
                     addProd.setText("No Product --> ADD");
                 } else {
                     tableHead = true;
-                    updateTableHeader();
                     updateTableBody(dataSnapshot);
                 }
             }
@@ -70,50 +66,6 @@ public class SetAmountActivity extends AppCompatActivity {
                 Log.e("Error", databaseError.getMessage());
             }
         });
-    }
-
-    private void updateTableHeader() {
-        /* Create a TableRow dynamically */
-        TableRow tr = new TableRow(this);
-        tr.setBackground(getResources().getDrawable(R.drawable.box_white_thick_border));
-        tr.setLayoutParams(new TableRow.LayoutParams(
-                TableRow.LayoutParams.MATCH_PARENT,
-                TableRow.LayoutParams.MATCH_PARENT));
-        tr.setWeightSum(2);
-
-            /*Params*/
-        TableRow.LayoutParams params = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
-        params.weight = 1.0f;
-
-
-        /* Product Product --> TextView */
-        TextView productNameHead = new TextView(this);
-        productNameHead.setLayoutParams(params);
-
-        productNameHead.setTextColor(getResources().getColor(R.color.colorBlack));
-        productNameHead.setPadding(16, 16, 16, 16);
-        productNameHead.setText("Product");
-        productNameHead.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
-        productNameHead.setTypeface(null, Typeface.BOLD);
-        productNameHead.setGravity(Gravity.CENTER);
-        tr.addView(productNameHead);
-
-        /* Product QTY --> TextView */
-        TextView productQTYHead = new TextView(this);
-        productQTYHead.setLayoutParams(params);
-
-        productQTYHead.setTextColor(getResources().getColor(R.color.colorBlack));
-        productQTYHead.setPadding(16, 16, 16, 16);
-        productQTYHead.setText("Price");
-        productQTYHead.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
-        productQTYHead.setTypeface(null, Typeface.BOLD);
-        productQTYHead.setGravity(Gravity.CENTER);
-        productQTYHead.setInputType(InputType.TYPE_CLASS_NUMBER);
-        tr.addView(productQTYHead);
-
-        // Add the TableRow to the TableLayout
-        tableLayout.addView(tr);
     }
 
     private void updateTableBody(DataSnapshot dataSnapshot) {
@@ -206,9 +158,8 @@ public class SetAmountActivity extends AppCompatActivity {
     public void setAmount(View view) {
         progressDialog.show();
         productDBRef.removeValue();
-        qtyDBRef.removeValue();
         HashMap<String, Object> itemsPrice = new HashMap<>();
-        for (int i = 1; i < tableLayout.getChildCount(); i++) {
+        for (int i = 0; i < tableLayout.getChildCount(); i++) {
             TableRow tableRow = (TableRow) tableLayout.getChildAt(i);
             if (tableRow != null) {
                 EditText productName = (EditText) tableRow.getChildAt(0);

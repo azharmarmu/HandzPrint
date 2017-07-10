@@ -29,12 +29,12 @@ public class ReportParty extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_report_party);
-        tableLayout = (TableLayout) findViewById(R.id.table_layout);
+        tableLayout = findViewById(R.id.table_layout);
 
         report = (Map<String, Object>) getIntent().getSerializableExtra("product");
         partyDetails = (HashMap<String, Object>) report.get("product");
 
-        TextView billTotal = (TextView) findViewById(R.id.tv_billing_total);
+        TextView billTotal = findViewById(R.id.tv_billing_total);
         billTotal.setText(getIntent().getExtras().getString("total"));
 
         updateTableHeader();

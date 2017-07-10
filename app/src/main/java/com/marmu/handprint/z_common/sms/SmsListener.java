@@ -5,5 +5,5 @@ package com.marmu.handprint.z_common.sms;
  */
 
 public interface SmsListener {
-    public void messageReceived(String messageText);
+    void messageReceived(String messageText);
 }

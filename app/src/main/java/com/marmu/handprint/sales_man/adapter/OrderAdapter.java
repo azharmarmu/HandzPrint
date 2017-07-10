@@ -12,7 +12,6 @@ import com.marmu.handprint.R;
 import com.marmu.handprint.sales_man.landing.activity.order.OrderBilling;
 import com.marmu.handprint.sales_man.model.OrderList;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -23,16 +22,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     private List<OrderList> mOrderLists;
     private Context mContext;
+    private String salesKey;
+    private String salesMan;
+    private String salesRoute;
 
-    public OrderAdapter(List<OrderList> orderLists, Context context) {
+    public OrderAdapter(String salesKey, String salesMan, String salesRoute, List<OrderList> orderLists, Context context) {
         this.mOrderLists = orderLists;
         this.mContext = context;
+        this.salesKey = salesKey;
+        this.salesMan = salesMan;
+        this.salesRoute = salesRoute;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_sales_man_order_list,
+                .inflate(R.layout.list_order,
                         parent, false);
         return new MyViewHolder(itemView);
     }
@@ -46,22 +51,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 Intent orderBilling = new Intent(mContext, OrderBilling.class);
-                orderBilling.putExtra("orderBill", (Serializable) orderList);
+                orderBilling.putExtra("orderBill", orderList);
+                orderBilling.putExtra("sales_key", salesKey);
+                orderBilling.putExtra("sales_man_name", salesMan);
+                orderBilling.putExtra("sales_route", salesRoute);
+                orderBilling.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(orderBilling);
-            }
-        });
-
-        holder.orderClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mOrderLists.size();
     }
 
     @Override
@@ -70,13 +72,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView partyName, orderView, orderClose;
+        private TextView partyName, orderView;
 
         private MyViewHolder(View view) {
             super(view);
-            partyName = (TextView) view.findViewById(R.id.party_name);
-            orderView = (TextView) view.findViewById(R.id.order_view);
-            orderClose = (TextView) view.findViewById(R.id.order_close);
+            partyName = view.findViewById(R.id.party_name);
+            orderView = view.findViewById(R.id.order_view);
         }
     }
 }

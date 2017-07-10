@@ -1,5 +1,6 @@
 package com.marmu.handprint.admin.landing.activity.sales.product.report;
 
+import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,19 +38,20 @@ public class ProductReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_product_report);
-        tableLayout = (TableLayout) findViewById(R.id.table_layout);
+        tableLayout = findViewById(R.id.table_layout);
 
         String date = getIntent().getStringExtra("date").replace("-", "/");
+        String route = getIntent().getStringExtra("route");
 
-        getData(date);
+        getData(date, route);
     }
 
-    private void getData(final String date) {
+    private void getData(final String date, final String route) {
         billingDBRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot != null) {
-                    evaluate(dataSnapshot, date);
+                    evaluate(dataSnapshot, date, route);
                 }
             }
 
@@ -60,10 +62,11 @@ public class ProductReportActivity extends AppCompatActivity {
         });
     }
 
-    private void evaluate(DataSnapshot dataSnapshot, String date) {
+    @SuppressLint("SimpleDateFormat")
+    private void evaluate(DataSnapshot dataSnapshot, String date, String route) {
         HashMap<String, Object> listParty = (HashMap<String, Object>) dataSnapshot.getValue();
 
-        TextView noSale = (TextView) findViewById(R.id.no_sales);
+        TextView noSale = findViewById(R.id.no_sales);
 
         tableLayout.setVisibility(View.GONE);
         noSale.setVisibility(View.GONE);
@@ -73,10 +76,12 @@ public class ProductReportActivity extends AppCompatActivity {
             for (String partyKey : partyName.keySet()) {
                 HashMap<String, Object> partyDetails = (HashMap<String, Object>) partyName.get(partyKey);
                 try {
-                    Date dbDate = new SimpleDateFormat("dd/MM/yyyy").parse(partyDetails.get("date").toString());
+                     Date dbDate = new SimpleDateFormat("dd/MM/yyyy").parse(partyDetails.get("date").toString());
                     Date localDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
 
-                    if (localDate.compareTo(dbDate) == 0) {
+                    String dbRoute = partyDetails.get("sales_route").toString();
+
+                    if (localDate.compareTo(dbDate) == 0 && dbRoute.equalsIgnoreCase(route)) {
                         HashMap<String, Object> product = (HashMap<String, Object>) partyDetails.get("product");
                         for (String prodKey : product.keySet()) {
                             HashMap<String, Object> productDetails = (HashMap<String, Object>) product.get(prodKey);

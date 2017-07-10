@@ -32,18 +32,14 @@
                 android:textSize="24sp" />
         </android.support.v7.widget.Toolbar>
 
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:id="@+id/et_party_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/et_party_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:hint="Party Name"
-                android:padding="16dp" />
-        </android.support.design.widget.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/box_white_thick_border_corner_ripple"
+            android:hint="Party Name"
+            android:padding="16dp" />
 
         <TableLayout
             android:id="@+id/table_layout"
@@ -58,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/box_white_thick_border"
             android:gravity="center"
             android:padding="16dp"

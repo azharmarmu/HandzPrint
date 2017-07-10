@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.crash.FirebaseCrash;
 import com.marmu.handprint.R;
-import com.marmu.handprint.z_common.ProgressBarHandler;
 import com.marmu.handprint.z_common.sms.SMSReceiver;
 import com.marmu.handprint.z_common.sms.SmsListener;
 
@@ -29,6 +29,7 @@ public class OTPActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseCrash.report(new Exception("OTP Activity Exception"));
         setContentView(R.layout.activity_z_otp);
         mAuth = FirebaseAuth.getInstance();
 
@@ -41,13 +42,13 @@ public class OTPActivity extends AppCompatActivity {
         } catch (NullPointerException e) {
             salesMan = null;
         }
-        et_OTP = (EditText) findViewById(R.id.et_otp);
+        et_OTP = findViewById(R.id.et_otp);
         autoFetchOTP();
     }
 
     private void autoFetchOTP() {
         Animation blink = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
-        TextView fetchOTP = (TextView) findViewById(R.id.try_fetch);
+        TextView fetchOTP = findViewById(R.id.try_fetch);
         fetchOTP.startAnimation(blink);
         SMSReceiver.bindListener(new SmsListener() {
             @Override
@@ -72,12 +73,11 @@ public class OTPActivity extends AppCompatActivity {
     }
 
     private void verifyOTP(String code) {
-        ProgressBarHandler progressBarHandler = new ProgressBarHandler(OTPActivity.this);
-        progressBarHandler.show();
         FirebasePhoneLogin.signInWithPhoneAuthCredential(OTPActivity.this,
                 new PhoneAuthCredential(verificationId, code),
                 user,
                 salesMan);
+        finish();
     }
 
 

@@ -5,11 +5,14 @@ import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.marmu.handprint.R;
 import com.marmu.handprint.z_common.Constants;
+import com.marmu.handprint.z_common.Permissions;
 
 
 import java.text.SimpleDateFormat;
@@ -67,24 +71,29 @@ public class ViewDeleteEditBillingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sales_man_view_delete_edit_billing);
-        tableLayout = (TableLayout) findViewById(R.id.table_layout);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
+
+        tableLayout = findViewById(R.id.table_layout);
         progressDialog = new ProgressDialog(ViewDeleteEditBillingActivity.this);
         progressDialog.setTitle("Loading...");
 
-        sp_party = (Spinner) findViewById(R.id.sp_party_name);
+        sp_party = findViewById(R.id.sp_party_name);
         sp_party.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 tableLayout.removeAllViews();
 
-                EditText partyName = (EditText) findViewById(R.id.et_party_name);
+                EditText partyName = findViewById(R.id.et_party_name);
                 partyName.setText(sp_party.getSelectedItem().toString());
                 partyName.setSelection(partyName.getText().length());
 
                 updateTableHeader();
                 updateTableBody();
 
-                TextView billTotal = (TextView) findViewById(R.id.tv_billing_total);
+                TextView billTotal = findViewById(R.id.tv_billing_total);
                 try {
                     billTotal.setText(localPartyDetails.get("total").toString());
                     total = Integer.parseInt(localPartyDetails.get("total").toString());
@@ -127,8 +136,8 @@ public class ViewDeleteEditBillingActivity extends AppCompatActivity {
         billingDBRef.child(salesKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                LinearLayout container = (LinearLayout) findViewById(R.id.view_delete_edit_layout);
-                TextView noText = (TextView) findViewById(R.id.no_layout);
+                LinearLayout container = findViewById(R.id.view_delete_edit_layout);
+                TextView noText = findViewById(R.id.no_layout);
                 container.setVisibility(View.GONE);
                 noText.setVisibility(View.GONE);
                 if (dataSnapshot.getValue() != null) {
@@ -302,7 +311,7 @@ public class ViewDeleteEditBillingActivity extends AppCompatActivity {
 
     @SuppressLint("SimpleDateFormat")
     public void saveBill(View view) {
-        final EditText partyName = (EditText) findViewById(R.id.et_party_name);
+        final EditText partyName = findViewById(R.id.et_party_name);
 
         if (TextUtils.isEmpty(partyName.getText())) {
             partyName.setError("Party Name is Mandatory");
@@ -324,7 +333,6 @@ public class ViewDeleteEditBillingActivity extends AppCompatActivity {
         }
     }
 
-
     public void deleteBill(View view) {
         if (leftQty.size() > 0) {
             takenDBRef.child(salesKey).child("sales_order_qty_left").updateChildren(leftQty);
@@ -333,14 +341,43 @@ public class ViewDeleteEditBillingActivity extends AppCompatActivity {
         }
     }
 
-
     public void printBill(View view) {
+        Permissions.EXTERNAL_STORAGE(ViewDeleteEditBillingActivity.this);
+        new PDF(productDetails);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_printer, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        /*switch (item.getItemId()) {
+            case R.id.action_connect:
+
+                try {
+                    findBT();
+                    openBT();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return true;
+            case R.id.action_disconnect:
+                try {
+                    closeBT();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return true;
+        }*/
+        return true;
     }
 
     public void backPress(View view) {
         onBackPressed();
     }
-
 
 }

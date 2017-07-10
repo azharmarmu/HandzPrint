@@ -1,6 +1,5 @@
 package com.marmu.handprint.z_common.login;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -16,7 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.marmu.handprint.admin.landing.activity.AdminLandingActivity;
 import com.marmu.handprint.sales_man.taken.TakenActivity;
 import com.marmu.handprint.z_common.Constants;
-import com.marmu.handprint.z_common.ProgressBarHandler;
 
 import java.util.HashMap;
 
@@ -32,7 +30,7 @@ class FirebasePhoneLogin {
                                               PhoneAuthCredential credential,
                                               final String user,
                                               final String salesMan) {
-        final ProgressBarHandler progressBarHandler = new ProgressBarHandler(context);
+
         Constants.AUTH.signInWithCredential(credential)
                 .addOnCompleteListener((new OnCompleteListener<AuthResult>() {
 
@@ -42,7 +40,6 @@ class FirebasePhoneLogin {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Success", "signInWithCredential:success");
-                            progressBarHandler.hide();
 
                             if (user.equalsIgnoreCase("admin")) {
 
@@ -52,8 +49,8 @@ class FirebasePhoneLogin {
 
                                 Intent adminLandingActivity = new Intent(context, AdminLandingActivity.class);
                                 adminLandingActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                adminLandingActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(adminLandingActivity);
-                                ((Activity) context).finish();
                             } else {
 
                                 HashMap<String, Object> adminDetails = new HashMap<>();
@@ -63,14 +60,12 @@ class FirebasePhoneLogin {
 
                                 Intent salesTakenActivity = new Intent(context, TakenActivity.class);
                                 salesTakenActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                salesTakenActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 salesTakenActivity.putExtra("sales_man_name", salesMan);
                                 context.startActivity(salesTakenActivity);
-                                ((Activity) context).finish();
                             }
                             // ...
                         } else {
-                            // Sign in failed, display a message and update the UI
-                            progressBarHandler.hide();
                             Log.w("Failed", "signInWithCredential:failure", task.getException());
 
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {

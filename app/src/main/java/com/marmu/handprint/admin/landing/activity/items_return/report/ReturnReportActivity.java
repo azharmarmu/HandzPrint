@@ -1,5 +1,6 @@
 package com.marmu.handprint.admin.landing.activity.items_return.report;
 
+import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,7 +40,7 @@ public class ReturnReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_return_report);
-        tableLayout = (TableLayout) findViewById(R.id.table_layout);
+        tableLayout = findViewById(R.id.table_layout);
 
         String date = getIntent().getStringExtra("date").replace("-", "/");
         route = getIntent().getStringExtra("route");
@@ -63,10 +64,11 @@ public class ReturnReportActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void evaluate(DataSnapshot dataSnapshot, String date, String route) {
         HashMap<String, Object> listTaken = (HashMap<String, Object>) dataSnapshot.getValue();
 
-        TextView noReturn = (TextView) findViewById(R.id.no_return);
+        TextView noReturn = findViewById(R.id.no_return);
 
         tableLayout.setVisibility(View.GONE);
         noReturn.setVisibility(View.GONE);
